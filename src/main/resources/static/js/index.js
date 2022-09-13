@@ -16,7 +16,6 @@ function populate(data, sensorChart, sensorId) {
     sensorChart.data.datasets[sensorId].data = dataySensor;
     sensorChart.data.datasets[sensorId].label = 'Temperature Core ' + sensorId;
     sensorChart.update('none');
-    console.log(data);
 }
 
 $(function() {
