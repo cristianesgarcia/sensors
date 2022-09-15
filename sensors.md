@@ -7,6 +7,7 @@ A RESTful API was implemented using Spring Boot.
 A web application presents the data collected.
 
 The following figure shows the project architecture.
+
 ![Class diagram](images/svg/prototipo.svg)
 
 ## Configuration
