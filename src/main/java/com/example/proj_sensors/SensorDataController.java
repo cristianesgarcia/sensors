@@ -1,10 +1,16 @@
 package com.example.proj_sensors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.ExposesResourceFor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 @Controller
+@ExposesResourceFor(SensorDataController.class)
 @RequestMapping(path = "/sensors")
 public class SensorDataController {
     @Autowired
@@ -13,11 +19,15 @@ public class SensorDataController {
     private SensorRepository sensorRepository;
 
     @PostMapping(path = "/{id}/samples")
-    public @ResponseBody String addNewSensorData(
+    public @ResponseBody EntityModel<SensorData> addNewSensorData(
             @PathVariable Integer id,
             @RequestBody SensorData newSensorData ) {
         sensorDataRepository.save(newSensorData);
-        return "Saved";
+        newSensorData.setSensor(new Sensor(newSensorData.getSensor().getId()));
+        return EntityModel.of(newSensorData,
+                linkTo(methodOn(SensorController.class).getSensorId(newSensorData.getSensor().getId())).withRel("sensor"),
+                linkTo(methodOn(SensorDataController.class).getSensorDataId(newSensorData.getSensor().getId(),20,-1)).withRel("samples"),
+                linkTo(methodOn(SensorController.class).getAll()).withRel("sensors"));
     }
 
     @GetMapping(path = "/{id}/samples")

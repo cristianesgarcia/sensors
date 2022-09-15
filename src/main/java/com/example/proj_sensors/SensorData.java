@@ -18,9 +18,6 @@ public class SensorData {
     @NonNull
     @Column(nullable = false)
     private String date_sampled;
-//    @NotNull
-//    @Column(nullable = false)
-//    private Integer data_type;
     @NotNull
     @Column(nullable = false)
     private Integer sample;
@@ -41,14 +38,6 @@ public class SensorData {
     public void setDate_sampled(@NonNull String date_sampled) {
         this.date_sampled = date_sampled;
     }
-
-//    public Integer getData_type() {
-//        return data_type;
-//    }
-//
-//    public void setData_type(Integer data_type) {
-//        this.data_type = data_type;
-//    }
 
     public Integer getSample() {
         return sample;
